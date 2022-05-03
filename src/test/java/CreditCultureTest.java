@@ -5,6 +5,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CreditCultureTest {
     private CreditCulture num;
 
@@ -34,30 +36,31 @@ public class CreditCultureTest {
         int sumOfcredit = 300000;
         int numberOfMonths = 18;
         double monthsBid = 0.0125;
-        double expected = 18715.44;
+        int expected =  18715;
         //act
-        int result = num.monthlyPayment(sumOfcredit,numberOfMonths,monthsBid);
+        int result = (int) num.monthlyPayment(sumOfcredit,numberOfMonths,monthsBid);
         //assert
-        Assertions.assertEquals(expected,result);
+        assertEquals(expected,result);
     }
     @Test
     void total_Amount_Test(){
-        double monthsBid = 0.0125;
-        int numberOfMonth = 18;
-        int sumOfCredit = 500000;
-        double expected = 559375;
+        double monthsBid = 0.018;
+        int numberOfMonth = 20;
+        int sumOfCredit = 100000;
+        int expected = 118900;
         //act
         int result = num.totalAmount(monthsBid,numberOfMonth,sumOfCredit);
         //assert
-        Assertions.assertEquals(expected,result);
+        assertEquals(expected,result);
     }
 
     @ParameterizedTest
     @MethodSource("source")
     public void overpayments_Test(int numberOfMonth,int sumOfCredit,double monthsBid,double expected){
         //act
-        int result = num.overpayments(numberOfMonth,sumOfCredit,monthsBid);
+        double result = num.overpayments(numberOfMonth,sumOfCredit,monthsBid);
         //assert
+        assertEquals(expected,result);
 
     }
     private static Stream<Arguments>source(){
